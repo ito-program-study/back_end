@@ -10,7 +10,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     PostModule,
     AuthModule,
     // NestJSがPostgreSQLと接続、勝手に読み込む
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'myuser',
+      password: 'mypassword',
+      database: 'my-db',
+      entities: ['dist/*.entity.js'],
+      migrations: ['dist/migrations/*.js'],
+    }),
   ],
   controllers: [],
   providers: [],
@@ -39,9 +48,6 @@ export class AppModule {}
 //     entitiesDir?: string;
 //   };
 // }
-
-// 作成したDB設定
-// docker run --name mydb -e POSTGRES_USER=myuser -e POSTGRES_PASSWORD=mypassword -e POSTGRES_DB=my-db -p 5432:5432 -d postgres
 
 //以下設定
 // import { TypeOrmModuleOptions } from '@nestjs/typeorm';
